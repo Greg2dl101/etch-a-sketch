@@ -1,0 +1,13 @@
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container {
+    border: 2px solid black;
+    width: 500px;
+    height: 500px;
+}
