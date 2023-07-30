@@ -1,36 +1,40 @@
-const board = document.querySelector(".board-container");
+let reset = document.querySelector("button");
+let board = document.querySelector(".board-container");
 
-let boardSize = getUserInput();
+reset.addEventListener("click", () => {
+  resetSize();
+});
 
-function getUserInput() {
-  let userInput = window.prompt("Enter the size of the board please:", 16);
-
-  if (userInput !== null) {
-    return userInput;
-  } else {
-    alert("You cancelled!");
-  }
+function resetSize() {
+  let number = prompt("What size would you like the baord to be? (1-100)");
+  board.style.gridTemplateColumns = `repeat(${number}, 1fr)`;
+  board.style.gridTemplateRows = `repeat(${number}, 1fr)`;
+  createBoard(number);
 }
 
-board.style.gridTemplateColumns = `repeat(${boardSize}, 1fr)`;
-board.style.gridTemplateRows = `repeat(${boardSize}, 1fr)`;
+function createBoard(boardSize) {
+  board.style.gridTemplateColumns = `repeat(${boardSize}, 1fr)`;
+  board.style.gridTemplateRows = `repeat(${boardSize}, 1fr)`;
 
-function createBoard() {
   for (let i = 0; i < boardSize * boardSize; i++) {
-    const square = document.createElement("div");
-
-    square.classList.add("square");
-
-    square.setAttribute("style", "background: orange;");
-
-    square.setAttribute("id", `square ${i}`);
-
+    let square = document.createElement("div");
+    square.style.backgroundColor = "orange";
     board.appendChild(square);
 
     square.addEventListener("mouseover", function (e) {
-      e.target.setAttribute("style", "background: blue;");
+      square.style.backgroundColor = "blue";
     });
+
+    function resetBoard() {
+      reset.addEventListener("click", () => {
+        square.style.backgroundColor = "white";
+      });
+    }
   }
+
+  resetBoard();
 }
 
-createBoard();
+createBoard(60);
+
+///////Has bug where not all squares reset!!!!
